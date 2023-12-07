@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: backends-app
+  namespace: user10-argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/offirl/Ngnix.git
+      revision: main
+      directories:
+      - path: Deployment/Backend/layers/*
+  template:
+    metadata:
+      name: 'backend-{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/offirl/Ngnix.git
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: user10-application
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
