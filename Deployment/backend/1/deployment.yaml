@@ -22,7 +22,7 @@ spec:
         deployment: backend1
     spec:
       containers:
-        - resources:
+          resources:
             requests:
               cpu: 150m
               memory: 128Mi
