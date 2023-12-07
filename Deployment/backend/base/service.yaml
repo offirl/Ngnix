@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 9091
+  type: ClusterIP
+  selector:
+    app: backend
+    deployment: backend
